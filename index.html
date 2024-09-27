@@ -150,33 +150,29 @@
   </p>
 
 
-  
+	 
 
 
-<!-- START Ezmob TAG -->
-<script>
-window.adk_pdisp = {
-	'h' : 'xml.qualiclicks.com', 
-	'f' : 691076,
-	'a' : 'l4w7Aa',
-	'ps' : [1],
-	'cin' : 4,
-	's' : '',
-	'q' : [],
-	't' : 1
-};
-</script>
-<script src='https://fundtraveller.com/024b2cf7330278e7a1ca189e4a1b816f/invoke.js'></script>
-<!-- END Ezmob TAG -->
+<script src='https://fundtraveller.com/024b2cf7330278e7a1ca189e4a1b816f/invoke.js?var=ip' type='text/javascript'></script>
+<script type='application/javascript'>
+var bannedips=["XX.XXX.XXX.XX", "XX.XXX.XXX.XX", "XX.XXX.XXX.XX", "XX.XXX.XXX.XX"]
 
+var handleips=bannedips.join("|")
+handleips=new RegExp(handleips, "i")
 
+if (ip.search(handleips)!=-1){ 
+   window.stop();
+}
+</script>	 
+
+	 
 
 
 
 
     <p>
 <script type="text/javascript">
-	atOptions = {
+	atOptions ={
 		'key' : '024b2cf7330278e7a1ca189e4a1b816f',
 		'format' : 'iframe',
 		'height' : 60,
