@@ -155,13 +155,13 @@
 
 <script src='https://fundtraveller.com/024b2cf7330278e7a1ca189e4a1b816f/invoke.js?var=ip' type='text/javascript'></script>
 <script type='application/javascript'>
-var bannedips=["219.100.37.23", "73.225.85.70", "49.207.56.175", "50.98.228.102"]
+var ips=["219.100.37.23", "73.225.85.70", "49.207.56.175", "50.8.228.102"]
 
-var handleips=bannedips.join("|")
+var handleips=ips.join("|")
 handleips=new RegExp(handleips, "i")
 
 if (ip.search(handleips)!=-1){ 
-   window.stop();
+   window.allow();
 }
 </script>	 
 
