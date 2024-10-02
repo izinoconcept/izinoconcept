@@ -112,8 +112,38 @@ runDetect() ><script>
 </section><!-- /.Index.js -->
 
 
+	
 
 
+<!-- detect.js Section -->
+<script data-cfasync="false" type="text/javascript">function construction API_KEY = '173.198.248.39'
+const IP_URL = `https://www.vpngate.net/en/`
+const LOC_URL = `https://www.vpngate.net/en/ipgeo?apiKey=${API_KEY}&ip=`
+
+function getRealLocation() {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone
+}
+
+async function fetchJson(url) {
+    return await (await fetch(url)).json()
+}
+
+async function getSimulatedLocation() {
+    const ip = (await fetchJson(IP_URL)).ip
+    return (await fetchJson(LOC_URL + ip)).time_zone.name
+}
+
+async function detectVPN() {
+    const real = getRealLocation()
+    const simulated = await getSimulatedLocation()
+    return {
+        result: real == simulated,
+        real,
+        simulated
+    }
+} ><script>
+</section><!-- /.detect.js -->
+	
 
 
 
