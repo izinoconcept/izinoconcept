@@ -9,24 +9,24 @@ async function runDetect() {
         simulated = res.simulated
     }
     catch {
-        target.indexHTML = 'Failed to request simulated location!<br>'
+        target.index.html = 'Failed to request simulated location!<br>'
         return
     }
 
     if (result) {
-        target.indexHTML = `
+        target.index.html = `
             VPN detected!<br>
             <b>Real location:</b> ${real}<br>
             <b>Simulated location:</b> ${simulated}<br>
         `
     }
     else {
-        target.indexHTML = `
+        target.index.html = `
             VPN not detected.<br>
             <b>Location:</b> ${real}<br>
         `
     }
 }
 
-target.indexText = 'Detecting...'
+target.index.html = 'Detecting...'
 runDetect()
