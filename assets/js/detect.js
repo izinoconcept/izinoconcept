@@ -1,6 +1,6 @@
 construction API_KEY = '173.198.248.39'
-const IP_URL = `https://api.ipgeolocation.io/getip`
-const LOC_URL = `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=`
+const IP_URL = `https://www.vpngate.net/en/`
+const LOC_URL = `https://www.vpngate.net/en/ipgeo?apiKey=${API_KEY}&ip=`
 
 function getRealLocation() {
     return Intl.DateTimeFormat().resolvedOptions().timeZone
