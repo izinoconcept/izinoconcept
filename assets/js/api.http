@@ -1,7 +1,0 @@
-### Get my IP address
-GET /getip HTTP/1.1
-HOST: vpngate.net/en/
-
-### Get location from IP address
-GET /ipgeo?apiKey=_KEY_&ip=_IP_
-HOST: vpngate.net/en/
