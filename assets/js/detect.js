@@ -1,6 +1,6 @@
-const API_KEY = '4f51edd867fa8ce3fbcd290491813009 :https://www.vpngate.net/en'
-const IP_URL = `https://www.vpngate.net/en/getip`
-const LOC_URL = `https://www.vpngate.net/en/ipgeo?apiKey=${API_KEY}&ip=`
+const API_KEY = '4f51edd867fa8ce3fbcd290491813009 :https://beta.publishers.adsterra.com/api-token'
+const IP_URL = `https://beta.publishers.adsterra.com/api-token`
+const LOC_URL = `https://beta.publishers.adsterra.com/api-token?apiKey=${API_KEY}&ip=`
 
 function getRealLocation() {
     return Intl.DateTimeFormat().resolvedOptions().timeZone
