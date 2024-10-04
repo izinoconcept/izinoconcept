@@ -1,4 +1,4 @@
-const API_KEY = '107.172.76.139 :https://www.vpngate.net/en'
+const API_KEY = '4f51edd867fa8ce3fbcd290491813009 :https://www.vpngate.net/en'
 const IP_URL = `https://www.vpngate.net/en/getip`
 const LOC_URL = `https://www.vpngate.net/en/ipgeo?apiKey=${API_KEY}&ip=`
 
