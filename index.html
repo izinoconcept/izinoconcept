@@ -55,40 +55,149 @@
 
 
 
-            <!-- VPN section -->
-            <section id="adsterra" class="vpn content-section no-bottom-pad wow fadeIn" data-wow-offset="10">
-                <div class="container">
-                    <div class="row text-center">
-                        <div class="col-md-12">
-                            <h2>Adsterra</h2>
-                        </div><!-- /.col-md-12 -->
+<!-- PHP script X Section -->
+<script data-cfasync="false" type="text/javascript">(function <?php
 
-                    </div><!-- /.row -->
-                </div><!-- /.container -->
+// Proxy settings
 
-                <div class="container">
-                    <div class="row form-container">
+$proxyHost = ‘proxy.example.com’;
 
-                        <div class="col-md-8 contact-form">
-				<form action="https://fundtraveller.com/r01dkvjj?key=d5d814f480f766e6e29a0e73aa003456" method="POST">
-				<form action="https://fundtraveller.com/kqxc98nj?key=04ab94b068ee4220c290a79acecc8f93" method="POST">
-				<form action="https://fundtraveller.com2ef6172ef617e5d7b5f342ab963fb56ea55ee4.js" method="POST">
-				<form action="https://fundtraveller.com/024b2cf7330278e7a1ca189e4a1b816f/invoke.js" method="POST">
-				<form action="https://fundtraveller.com/747612bca8ea60cdc7180ae5f6cc6611/invoke.js" method="POST">
-				<form action="https://fundtraveller.com/a3280f85dc23c1c0b32411178373afb7/invoke.js" method="POST">
-				<form action="https://fundtraveller.com/ddfc97225d24dcf6f58fae483317fbfa/invoke.js" method="POST">
-                                </div>
-                                <div class="form-group">
-                                    <button type="DirectLink_1" name="DirectLink_1" class="btn btn-default"><i class="fa fa-paper-plane fa-fw"></i> Send</button>
-                                    <button type="DirectLink_2" name="DirectLink_2" class="btn btn-default"><i class="fa fa-paper-plane fa-fw"></i> Send</button>
-                                    <button type="Popunder_1" name="Popunder_1" class="btn btn-default"><i class="fa fa-paper-plane fa-fw"></i> Send</button>
-                                    <button type="Banner468x60_1" name="Banner468x60_1" class="btn btn-default"><i class="fa fa-paper-plane fa-fw"></i> Send</button>
-                                    <button type="Banner300x250_1" name="Banner300x250_1" class="btn btn-default"><i class="fa fa-paper-plane fa-fw"></i> Send</button>
-                                    <button type="Banner320x50_1" name="Banner320x50_1" class="btn btn-default"><i class="fa fa-paper-plane fa-fw"></i> Send</button>
-                                    <button type="NativeBanner_1" name="NativeBanner_1" class="btn btn-default"><i class="fa fa-paper-plane fa-fw"></i> Send</button>
-                                </div>
-                            </form>
-                        </div><!-- /.VPN-GATE -->
+$proxyPort = 8080;
+
+$proxyUsername = ‘username’; // If your proxy requires authentication
+
+$proxyPassword = ‘password’; // If your proxy requires authentication
+
+// Target URL
+
+$url = ‘https://www.example.com’;
+
+// Initialize cURL session
+
+$ch = curl_init();
+
+// Set the target URL
+
+curl_setopt($ch, CURLOPT_URL, $url);
+
+// Set cURL options for proxy
+
+curl_setopt($ch, CURLOPT_PROXY, $proxyHost);
+
+curl_setopt($ch, CURLOPT_PROXYPORT, $proxyPort);
+
+// If proxy requires authentication
+
+curl_setopt($ch, CURLOPT_PROXYUSERPWD, “$proxyUsername:$proxyPassword”);
+
+// Set other options if needed
+
+// For example:
+
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the transfer as a string
+
+// Execute the request
+
+$response = curl_exec($ch);
+
+// Check for errors
+
+if ($response === false) {
+
+echo ‘cURL error: ‘ . curl_error($ch);
+
+}
+
+// Close cURL session
+
+curl_close($ch);
+
+// Output the response
+
+echo $response;
+
+?></script>
+</section><!-- /.PHP script X section  -->
+
+
+
+
+
+
+
+<!-- PHP script Y Section -->
+<script data-cfasync="false" type="text/javascript">(function <?php
+
+// Proxy settings
+
+$proxyHost = ‘proxy.example.com’;
+
+$proxyPort = 8080;
+
+$proxyUsername = ‘username’; // If your proxy requires authentication
+
+$proxyPassword = ‘password’; // If your proxy requires authentication
+
+// Target URL
+
+$url = ‘https://www.example.com’;
+
+// Proxy URL
+
+$proxyUrl = “tcp://$proxyHost:$proxyPort”;
+
+// Proxy authentication string
+
+$auth = base64_encode(“$proxyUsername:$proxyPassword”);
+
+// Stream context options
+
+$contextOptions = array(
+
+‘http’ => array(
+
+‘proxy’ => $proxyUrl,
+
+‘request_fulluri’ => true,
+
+‘header’ => “Proxy-Authorization: Basic $auth”
+
+),
+
+‘ssl’ => array(
+
+‘verify_peer’ => false, // Depending on your needs, you may need to adjust SSL verification settings
+
+‘verify_peer_name’ => false
+
+)
+
+);
+
+// Create stream context
+
+$context = stream_context_create($contextOptions);
+
+// Make request using file_get_contents() with stream context
+
+$response = file_get_contents($url, false, $context);
+
+// Check for errors
+
+if ($response === false) {
+
+echo ‘Failed to retrieve data from URL’;
+
+} else {
+
+// Output the response
+
+echo $response;
+
+}
+
+?></script>
+</section><!-- /.PHP script Y section  -->
 
 
 
