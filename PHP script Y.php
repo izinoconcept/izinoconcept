@@ -2,45 +2,45 @@
 
 // Proxy settings
 
-$proxyHost = ‘107.172.76.139’;
+$proxyHost = â€˜44.227.181.1â€™;  
 
-$proxyPort = 443;
+$proxyPort = 1080;
 
-$proxyUsername = ‘vpn’; // If your proxy requires authentication
+$proxyUsername = â€˜vpnâ€™; // If your proxy requires authentication
 
-$proxyPassword = ‘vpn’; // If your proxy requires authentication
+$proxyPassword = â€˜vpnâ€™; // If your proxy requires authentication
 
 // Target URL
 
-$url = ‘https://www.vpngate.net/en/’;
+$url = â€˜https://www.proxynova.com/â€™;
 
 // Proxy URL
 
-$proxyUrl = “tcp://$proxyHost:$proxyPort”;
+$proxyUrl = â€œtcp://$proxyHost:$proxyPortâ€;
 
 // Proxy authentication string
 
-$auth = base64_encode(“$proxyUsername:$proxyPassword”);
+$auth = base64_encode(â€œ$proxyUsername:$proxyPasswordâ€);
 
 // Stream context options
 
 $contextOptions = array(
 
-‘http’ => array(
+â€˜httpâ€™ => array(
 
-‘proxy’ => $proxyUrl,
+â€˜proxyâ€™ => $proxyUrl,
 
-‘request_fulluri’ => true,
+â€˜request_fulluriâ€™ => true,
 
-‘header’ => “Proxy-Authorization: Basic $auth”
+â€˜headerâ€™ => â€œProxy-Authorization: Basic $authâ€
 
 ),
 
-‘ssl’ => array(
+â€˜sslâ€™ => array(
 
-‘verify_peer’ => false, // Depending on your needs, you may need to adjust SSL verification settings
+â€˜verify_peerâ€™ => false, // Depending on your needs, you may need to adjust SSL verification settings
 
-‘verify_peer_name’ => false
+â€˜verify_peer_nameâ€™ => false
 
 )
 
@@ -58,7 +58,7 @@ $response = file_get_contents($url, false, $context);
 
 if ($response === false) {
 
-echo ‘Failed to retrieve data from URL’;
+echo â€˜Failed to retrieve data from URLâ€™;
 
 } else {
 
