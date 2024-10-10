@@ -2,17 +2,17 @@
 
 // Proxy settings
 
-$proxyHost = ë107.172.76.139í;
+$proxyHost = ‚Äò44.227.181.1‚Äô;
 
-$proxyPort = 443;
+$proxyPort = 1080;
 
-$proxyUsername = ëvpní; // If your proxy requires authentication
+$proxyUsername = ‚Äòvpn‚Äô; // If your proxy requires authentication
 
-$proxyPassword = ëvpní; // If your proxy requires authentication
+$proxyPassword = ‚Äòvpn‚Äô; // If your proxy requires authentication
 
 // Target URL
 
-$url = ëhttps://www.vpngate.net/en/í;
+$url = ‚Äòhttps://www.proxynova.com/‚Äô;
 
 // Initialize cURL session
 
@@ -30,7 +30,7 @@ curl_setopt($ch, CURLOPT_PROXYPORT, $proxyPort);
 
 // If proxy requires authentication
 
-curl_setopt($ch, CURLOPT_PROXYUSERPWD, ì$proxyUsername:$proxyPasswordî);
+curl_setopt($ch, CURLOPT_PROXYUSERPWD, ‚Äú$proxyUsername:$proxyPassword‚Äù);
 
 // Set other options if needed
 
@@ -46,7 +46,7 @@ $response = curl_exec($ch);
 
 if ($response === false) {
 
-echo ëcURL error: ë . curl_error($ch);
+echo ‚ÄòcURL error: ‚Äò . curl_error($ch);
 
 }
 
