@@ -1,61 +1,56 @@
 <?php
+$proxy_url =
+    'http' .
+    (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 's' : '') .
+    '://' .
+    $_SERVER['HTTP_HOST'] .
+    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-// Proxy settings
+$receipts = [
+    'example.js' => [
+        ['location.origin!==n.origin', '1===0&&location.origin!==n.origin'], /* simple replacements (like origin checks) */
+        ['/(https:\/\/.+\.example\.net\/assets\/js\/another\/asset.js)/', $proxy_url . '?url=$1'], /* regex is also possible */
+        ['</head>', '<style>.ads { display:none; }</style></head>'] /* inject your own styles */
+    ],
+    '/regex-match-v.*\.js/' => [/*...*/]
+];
 
-$proxyHost = ‘44.227.181.1’;
+if (!isset($_REQUEST['url'])) {
+    die();
+}
+$url = $_REQUEST['url'];
 
-$proxyPort = 1080;
+$mime_types = [
+    '.js' => 'text/javascript',
+    '.css' => 'text/css'
+];
+$mime_type = 'text/html';
+foreach ($mime_types as $mime_types__key => $mime_types__value) {
+    if (stripos($url, $mime_types__key) !== false) {
+        $mime_type = $mime_types__value;
+        break;
+    }
+}
+header('Content-Type: ' . $mime_type);
 
-$proxyUsername = ‘vpn’; // If your proxy requires authentication
+$output = file_get_contents($url);
 
-$proxyPassword = ‘vpn’; // If your proxy requires authentication
-
-// Target URL
-
-$url = ‘https://www.proxynova.com/’;
-
-// Initialize cURL session
-
-$ch = curl_init();
-
-// Set the target URL
-
-curl_setopt($ch, CURLOPT_URL, $url);
-
-// Set cURL options for proxy
-
-curl_setopt($ch, CURLOPT_PROXY, $proxyHost);
-
-curl_setopt($ch, CURLOPT_PROXYPORT, $proxyPort);
-
-// If proxy requires authentication
-
-curl_setopt($ch, CURLOPT_PROXYUSERPWD, “$proxyUsername:$proxyPassword”);
-
-// Set other options if needed
-
-// For example:
-
-// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the transfer as a string
-
-// Execute the request
-
-$response = curl_exec($ch);
-
-// Check for errors
-
-if ($response === false) {
-
-echo ‘cURL error: ‘ . curl_error($ch);
-
+foreach ($receipts as $receipts__key => $receipts__value) {
+    $is_regex_key = preg_match("/^\/.+\/[a-z]*$/i", $receipts__key);
+    if (
+        ($is_regex_key && preg_match($receipts__key, $url)) ||
+        (!$is_regex_key && stripos($url, $receipts__key) !== false)
+    ) {
+        foreach ($receipts__value as $receipts__value__value) {
+            $is_regex_value = preg_match("/^\/.+\/[a-z]*$/i", $receipts__value__value[0]);
+            if ($is_regex_value) {
+                $output = preg_replace($receipts__value__value[0], $receipts__value__value[1], $output);
+            } else {
+                $output = str_replace($receipts__value__value[0], $receipts__value__value[1], $output);
+            }
+        }
+    }
 }
 
-// Close cURL session
-
-curl_close($ch);
-
-// Output the response
-
-echo $response;
-
-?>
+echo $output;
+die();
