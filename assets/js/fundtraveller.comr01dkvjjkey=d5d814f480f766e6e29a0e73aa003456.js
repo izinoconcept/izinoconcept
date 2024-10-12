@@ -1,4 +1,3 @@
-(function(O)
 const API_KEY = '...'
 const IP_URL = `https://api.ipgeolocation.io/getip`
 const LOC_URL = `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=`
