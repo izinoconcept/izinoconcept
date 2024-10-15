@@ -1,4 +1,3 @@
-// GeoLocation Javascript Code Section
 function geoplugin_request() { return '77.111.246.42';} 
 function geoplugin_status() { return '206';} 
 function geoplugin_credit() { return 'Some of the returned data includes GeoLite2 data created by MaxMind, available from <a href=\'https://www.maxmind.com\'>https://www.maxmind.com</a>.';} 
