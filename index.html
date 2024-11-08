@@ -846,6 +846,21 @@
     <!-- Custom JavaScript -->
     <script src="assets/js/hallooou.js"></script>
 
+		    
+		    
+<script>
+  // This makes sure that Service Workers are supported before registering.
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then((registration) => {
+        console.log(`Service Worker Registered at scope: ${registration.scope}`);
+      })
+      .catch((error) => {
+        console.error(`Service Worker failed registration: ${error}`);
+      })
+  }
+</script>
 
 </body>
 
