@@ -848,19 +848,7 @@
 
 		    
 		    
-<script>
-  // This makes sure that Service Workers are supported before registering.
-  if ('phsw3' in navigator) {
-    navigator.phsw3
-      .register('/phsw3.js')
-      .then((registration) => {
-        console.log(`phsw3 Registered at scope: ${registration.scope}`);
-      })
-      .catch((error) => {
-        console.error(`phsw3 failed registration: ${error}`);
-      })
-  }
-</script>
+
 
 </body>
 
