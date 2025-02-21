@@ -1,2 +1,9 @@
-self.options = {domainId:9752,};
-importScripts('https://hotbdefoxi.com/sitesw_v2.js');
+<script> 
+if (typeof window._phv2Activator === "undefined") {
+document.addEventListener('phv2site.ready', (e) => {
+window._phv2Activator.activate('native_web_push');
+});
+} else {
+window._phv2Activator.activate('native_web_push');
+}
+</script>
