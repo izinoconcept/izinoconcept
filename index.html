@@ -53,6 +53,22 @@
 
 
 
+<!-- Display content based on the visitor's real country Section -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Country Detection</title>
+</head>
+
+</section><!-- /.Display content based on the visitor's real country -->
+	
+
+
+
+
+
 
 
 <!-- Google Search Console Section -->
@@ -1812,6 +1828,55 @@ document.addEventListener('creativeDisplayed-5590582', console.log, false);
 
 
 
+
+<!-- Display content based on the visitor's real country Section -->
+
+<body>
+
+<div id="content">Loading...</div>
+
+<script>
+fetch("https://ipapi.co/json/")
+.then(response => response.json())
+.then(data => {
+
+    let country = data.country_code;
+    let text = "";
+
+    switch(country){
+
+        case "US":
+            text = "Welcome, visitor from the United States!";
+            break;
+
+        case "GB":
+            text = "Welcome, visitor from the United Kingdom!";
+            break;
+
+        case "CA":
+            text = "Welcome, visitor from Canada!";
+            break;
+
+        case "DE":
+            text = "Willkommen!";
+            break;
+
+        case "NG":
+            text = "Welcome from Nigeria!";
+            break;
+
+        default:
+            text = "Welcome, international visitor!";
+    }
+
+    document.getElementById("content").innerHTML = text;
+});
+</script>
+
+</body>
+</html>
+
+</section><!-- /.Display content based on the visitor's real country -->								
 
 
 
