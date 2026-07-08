@@ -53,37 +53,34 @@
 
 
 
-<!-- Display content based on the visitor's real country Section -->
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Country Detection</title>
-</head>
-
-
+<!-- https://grok.com/share/c2hhcmQtMg_1bcd779e-bf88-44ee-b523-76382d23f79a Section -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geo-Targeted Ads Demo</title>
+    <title>Optimized Ads</title>
     <style>
-        .ad-container { margin: 20px; padding: 15px; border: 1px solid #ccc; }
-        .ad-us { background: #e6f7ff; }
-        .ad-uk { background: #fff0e6; }
-        .ad-in { background: #f0ffe6; }
+        .ad-container {
+            margin: 20px 0;
+            text-align: center;
+            min-height: 250px; /* Prevent layout shift */
+        }
+        .sticky-ad {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+        }
     </style>
-</head>	
+</head>
+								
 
-</section><!-- /.Display content based on the visitor's real country -->
+</section><!-- /.https://grok.com/share/c2hhcmQtMg_1bcd779e-bf88-44ee-b523-76382d23f79a -->	
+
+
 	
-
-
-
-
 
 
 
@@ -111,13 +108,6 @@
 </section><!-- /.Add Google Analytics (Track Real Traffic)  -->
 
 
-
-
-<!-- adcash Section -->
-
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-
-</section><!-- /.adcash -->	
 
 
 
@@ -1831,179 +1821,14 @@ document.addEventListener('creativeDisplayed-5590582', console.log, false);
 
 
 
-				
-
-
-
-
-<!-- Display content based on the visitor's real country Section -->
-
-<body>
-
-<div id="content">Loading...</div>
-
-<script>
-fetch("https://ipapi.co/json/")
-.then(response => response.json())
-.then(data => {
-
-    let country = data.country_code;
-    let text = "";
-
-    switch(country){
-
-        case "US":
-            text = "Welcome, visitor from the United States!";
-            break;
-
-        case "GB":
-            text = "Welcome, visitor from the United Kingdom!";
-            break;
-
-        case "CA":
-            text = "Welcome, visitor from Canada!";
-            break;
-
-        case "DE":
-            text = "Willkommen!";
-            break;
-
-        case "NG":
-            text = "Welcome from Nigeria!";
-            break;
-
-        default:
-            text = "Welcome, international visitor!";
-    }
-
-    document.getElementById("content").innerHTML = text;
-});
-</script>
-
-</body>
-</html>
-
-
-
-<body>
-    <h1>Your Website Content</h1>
-    
-    <div id="ad-placeholder" class="ad-container">
-        Loading ad based on your location...
-    </div>
-
-    <script>
-        // Free geo-IP API (use multiple fallbacks in production)
-        async function getCountryAndShowAd() {
-            try {
-                // Example APIs: ipapi.co, ipgeolocation.io, or self-hosted
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                const country = data.country_code || 'UNKNOWN';
-                
-                const adContainer = document.getElementById('ad-placeholder');
-                adContainer.innerHTML = `<p>Detected Country: ${country} (${data.country_name})</p>`;
-                
-                if (country === 'US' || country === 'USA') {
-                    adContainer.classList.add('ad-us');
-                    adContainer.innerHTML += `
-                        <h3>US-Targeted Ad</h3>
-                        <!-- Insert US-specific ad code here, e.g., Google AdSense -->
-                        <ins class="adsbygoogle" ...></ins>
-                        <p>US promotions / pricing</p>
-                    `;
-                } else if (country === 'GB' || country === 'UK') {
-                    adContainer.classList.add('ad-uk');
-                    adContainer.innerHTML += `
-                        <h3>UK-Targeted Ad</h3>
-                        <!-- UK-specific ad code -->
-                        <p>UK promotions</p>
-                    `;
-                } else if (country === 'IN') {
-                    adContainer.classList.add('ad-in');
-                    adContainer.innerHTML += `
-                        <h3>India-Targeted Ad</h3>
-                        <!-- India-specific ad code -->
-                        <p>India promotions</p>
-                    `;
-                } else {
-                    adContainer.innerHTML += `
-                        <h3>Default / Global Ad</h3>
-                        <!-- Default ad code -->
-                    `;
-                }
-            } catch (error) {
-                console.error('Geo detection failed:', error);
-                // Fallback to default ad
-                document.getElementById('ad-placeholder').innerHTML = `
-                    <h3>Default Ad (Geo detection unavailable)</h3>
-                `;
-            }
-        }
-
-        // Run on page load
-        window.onload = getCountryAndShowAd;
-    </script>
-</body>
-</html>								
-
-</section><!-- /.Display content based on the visitor's real country -->	
-
-
-
-<!-- JavaScript (Node.js + Axios for backend fetching) Section -->
-
-// Not for browser, but for server-side ad preview
-const axios = require('axios');
-
-const proxiesByCountry = {
-    'US': ['http://user:pass@us-proxy.example:8080', /* more */],
-    'GB': ['http://user:pass@uk-proxy.example:8080'],
-    // Add more
-};
-
-async function fetchWithProxy(url, proxy) {
-    try {
-        const response = await axios.get(url, {
-            proxy: {
-                host: proxy.split('//')[1].split(':')[0],
-                port: parseInt(proxy.split(':')[2]),
-                // auth if needed
-            }
-        });
-        console.log(`Fetched from proxy ${proxy}:`, response.data);
-    } catch (e) {
-        console.error('Proxy failed:', e.message);
-    }
-}
-
-</section><!-- /.JavaScript (Node.js + Axios for backend fetching) -->										
+									
 
 
 
 
 								
-<!-- Grok Section -->
+<!-- https://grok.com/share/c2hhcmQtMg_1bcd779e-bf88-44ee-b523-76382d23f79a Section -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimized Ads</title>
-    <style>
-        .ad-container {
-            margin: 20px 0;
-            text-align: center;
-            min-height: 250px; /* Prevent layout shift */
-        }
-        .sticky-ad {
-            position: sticky;
-            top: 20px;
-            z-index: 1000;
-        }
-    </style>
-</head>
 <body>
 
 <!-- Example Ad Slot -->
@@ -2125,6 +1950,10 @@ async function fetchWithProxy(url, proxy) {
 
 </body>
 </html>
+
+
+
+
 								
 
 <script src="https://cdn.jsdelivr.net/npm/prebid.js@latest/build/dist/prebid.js" async></script>
@@ -2142,7 +1971,13 @@ pbjs.que.push(function() {
 </script>
 								
 
-</section><!-- /.Grok -->										
+								
+								
+
+</section><!-- /.https://grok.com/share/c2hhcmQtMg_1bcd779e-bf88-44ee-b523-76382d23f79a -->	
+
+
+								
 								
 
 </body>
