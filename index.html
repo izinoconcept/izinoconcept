@@ -1983,92 +1983,166 @@ async function fetchWithProxy(url, proxy) {
 
 
 								
-<!-- Praxiom Section -->
+<!-- Grok Section -->
 
-								
-// 1. LAZY LOAD ADS - Only load when visible
-// This improves viewability scores, which ad networks reward
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized Ads</title>
+    <style>
+        .ad-container {
+            margin: 20px 0;
+            text-align: center;
+            min-height: 250px; /* Prevent layout shift */
+        }
+        .sticky-ad {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
 
-const lazyLoadAds = () => {
-  const adContainers = document.querySelectorAll('.ad-container');
-  
-  const adObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const container = entry.target;
-        const adId = container.dataset.adId;
+<!-- Example Ad Slot -->
+<div class="ad-container">
+    <div id="ad-slot-1"></div>
+</div>
+
+<script>
+    // === CONFIG ===
+    const adConfig = {
+        refreshInterval: 45000,     // 45 seconds (safe, don't go lower)
+        minViewTime: 7000,          // Minimum time visible before counting
+        lazyLoadOffset: 300         // pixels before viewport
+    };
+
+    // Load Google AdSense (or your network) asynchronously
+    function loadAdNetwork() {
+        // Example for AdSense - replace with your publisher ID
+        (function() {
+            const script = document.createElement('script');
+            script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR-ID-HERE";
+            script.async = true;
+            script.crossOrigin = "anonymous";
+            document.head.appendChild(script);
+        })();
+    }
+
+    // Push new ad
+    function showAd(containerId, slotId, format = 'auto') {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // Clear previous if needed
+        container.innerHTML = '';
+
+        const adElement = document.createElement('ins');
+        adElement.className = 'adsbygoogle';
+        adElement.style.display = 'block';
+        adElement.setAttribute('data-ad-client', 'ca-pub-YOUR-ID-HERE');
+        adElement.setAttribute('data-ad-slot', slotId);
+        adElement.setAttribute('data-ad-format', format);
+        adElement.setAttribute('data-full-width-responsive', 'true');
         
-        // Load ad only when in viewport
-        loadAdUnit(adId, container);
-        adObserver.unobserve(container);
-      }
-    });
-  }, { threshold: 0.1 }); // Trigger when 10% visible
+        container.appendChild(adElement);
+        
+        // Push to AdSense
+        try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+            console.warn('Ad push failed', e);
+        }
+    }
 
-  adContainers.forEach(container => adObserver.observe(container));
-};
+    // Lazy loading with Intersection Observer (great for viewability)
+    function setupLazyAds() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const slotId = entry.target.dataset.slot;
+                    if (slotId) {
+                        showAd(entry.target.id, slotId);
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: `${adConfig.lazyLoadOffset}px`
+        });
 
-// 2. VIEWABILITY OPTIMIZATION
-// Track actual ad visibility and adjust placements
+        // Observe your ad containers
+        document.querySelectorAll('.ad-container').forEach(container => {
+            if (container.id) observer.observe(container);
+        });
+    }
 
-const trackAdViewability = (adId) => {
-  const adElement = document.getElementById(adId);
-  
-  const visibilityObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const visibilityRatio = entry.intersectionRatio;
-      const isVisible = visibilityRatio > 0.5; // 50% threshold
-      
-      // Send viewability data to analytics
-      if (isVisible) {
-        sendAnalytics('ad_viewable', { adId, visibilityRatio });
-      }
-    });
-  }, { threshold: [0.5, 0.75, 1.0] });
-  
-  visibilityObserver.observe(adElement);
-};
+    // Safe ad refresh (only visible ads)
+    function refreshVisibleAds() {
+        document.querySelectorAll('.adsbygoogle').forEach(ad => {
+            const rect = ad.getBoundingClientRect();
+            const isVisible = (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
 
-// 3. RESPONSIVE AD SIZING
-// Serve optimal ad sizes per device (higher CPM on proper sizing)
+            if (isVisible) {
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {}
+            }
+        });
+    }
 
-const getOptimalAdSize = () => {
-  const width = window.innerWidth;
-  
-  if (width >= 1200) return { w: 970, h: 250 }; // Leaderboard
-  if (width >= 768) return { w: 728, h: 90 };   // Medium rectangle
-  return { w: 320, h: 100 };                     // Mobile
-};
+    // Initialize everything
+    window.onload = function() {
+        loadAdNetwork();
+        
+        // Initial ad load
+        setTimeout(() => {
+            setupLazyAds();
+            
+            // Example slots - replace with your actual slots
+            // showAd('ad-slot-1', 'YOUR_SLOT_ID_1', 'auto');
+        }, 500);
 
-// 4. AVOID AD FATIGUE - Rotate ad slots
-// Fresh inventory often commands better rates
+        // Periodic refresh (careful with frequency)
+        setInterval(() => {
+            refreshVisibleAds();
+        }, adConfig.refreshInterval);
+    };
 
-const adRotation = {
-  slots: ['slot-a', 'slot-b', 'slot-c'],
-  currentIndex: 0,
-  
-  getNextSlot() {
-    const slot = this.slots[this.currentIndex];
-    this.currentIndex = (this.currentIndex + 1) % this.slots.length;
-    return slot;
-  }
-};
+    // Track viewability (optional analytics)
+    function trackViewability() {
+        // You can send data to your analytics here
+        console.log('%c Ad viewability tracking active', 'color: green');
+    }
+</script>
 
-// 5. BLOCK LOW-QUALITY ADS (Optional)
-// Some networks allow category filtering
+</body>
+</html>
+								
 
-const adConfig = {
-  disablePersonalizedAds: false, // Keep personalization for higher CPM
-  tagForChildDirected: false,
-  adCategories: ['finance', 'technology', 'business'] // Higher-paying niches
-};
-
-// Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
-  lazyLoadAds();
+<script src="https://cdn.jsdelivr.net/npm/prebid.js@latest/build/dist/prebid.js" async></script>
+<script>
+// Prebid configuration goes here
+const pbjs = window.pbjs || {};
+pbjs.que.push(function() {
+    pbjs.addAdUnits([{
+        code: 'ad-slot-1',
+        mediaTypes: { banner: { sizes: [[300, 250]] }},
+        bids: [ /* your bidder config */ ]
+    }]);
+    pbjs.requestBids({ bidsBackHandler: sendAdserverRequest });
 });
+</script>
+								
 
-</section><!-- /.Praxiom -->										
+</section><!-- /.Grok -->										
 								
 
 </body>
