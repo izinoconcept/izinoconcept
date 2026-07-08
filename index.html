@@ -54,8 +54,50 @@
 
 
 
-<!-- https://grok.com/share/c2hhcmQtMg_1bcd779e-bf88-44ee-b523-76382d23f79a Section -->
+<!-- https://grok.com/share/c2hhcmQtMg_a409df1d-d7ac-468e-8d77-d45146236b06 Section -->
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoClick Optimized Page</title>
+    <style>
+        .exoclick-container {
+            margin: 25px 0;
+            text-align: center;
+            min-height: 280px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+        }
+        .sticky-ad {
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+        }
+        .in-content {
+            margin: 40px 0;
+        }
+    </style>
+</head>
+
+
+
+</section><!-- /.https://grok.com/share/c2hhcmQtMg_a409df1d-d7ac-468e-8d77-d45146236b06 -->		
+
+
+
+
+
+
+
+
+
+
+	
+<!-- https://grok.com/share/c2hhcmQtMg_1bcd779e-bf88-44ee-b523-76382d23f79a Section -->
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1971,10 +2013,141 @@ pbjs.que.push(function() {
 </script>
 								
 
-								
-								
+															
 
 </section><!-- /.https://grok.com/share/c2hhcmQtMg_1bcd779e-bf88-44ee-b523-76382d23f79a -->	
+
+
+
+
+
+
+<!-- https://grok.com/share/c2hhcmQtMg_a409df1d-d7ac-468e-8d77-d45146236b06 Section -->
+
+
+<body>
+
+<!-- ==================== AD CONTAINERS ==================== -->
+
+<!-- Top Banner -->
+<div class="exoclick-container" id="exo-top" data-zoneid="YOUR_TOP_ZONE_ID"></div>
+
+<!-- In-Content / Mid-Article (Great for CPM) -->
+<div class="exoclick-container in-content" id="exo-incontent" data-zoneid="YOUR_INCONTENT_ZONE_ID"></div>
+
+<!-- Sidebar Sticky -->
+<div class="exoclick-container sticky-ad" id="exo-sidebar" data-zoneid="YOUR_SIDEBAR_ZONE_ID"></div>
+
+<!-- Bottom / Native -->
+<div class="exoclick-container" id="exo-bottom" data-zoneid="YOUR_BOTTOM_ZONE_ID"></div>
+
+<script>
+    // ==================== CONFIG ====================
+    const EXO_CONFIG = {
+        refreshInterval: 45000,     // 45 seconds (safe)
+        lazyOffset: 400,            // px before viewport
+        adProviderSrc: "https://a.magsrv.com/ad-provider.js"   // Official ExoClick host
+    };
+
+    // Load the main ExoClick script once
+    function loadExoProvider() {
+        if (window.exoProviderLoaded) return;
+        window.exoProviderLoaded = true;
+
+        const script = document.createElement('script');
+        script.async = true;
+        script.type = "application/javascript";
+        script.src = EXO_CONFIG.adProviderSrc;
+        document.head.appendChild(script);
+    }
+
+    // Display a specific ad zone
+    function showExoAd(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container || !container.dataset.zoneid) return;
+
+        const zoneId = container.dataset.zoneid;
+
+        // Create the <ins> element
+        const ins = document.createElement('ins');
+        ins.className = `eas${Math.random().toString(36).substring(2, 10)}`; // ExoClick expects a class
+        ins.setAttribute('data-zoneid', zoneId);
+        // Optional: Add targeting parameters
+        // ins.setAttribute('data-keywords', 'your,keywords,here');
+        // ins.setAttribute('data-sub', 'sub123'); // for tracking
+
+        container.innerHTML = '';
+        container.appendChild(ins);
+
+        // Serve the ad
+        try {
+            (AdProvider = window.AdProvider || []).push({"serve": {}});
+        } catch (e) {
+            console.warn('ExoClick serve error:', e);
+        }
+    }
+
+    // Lazy loading with Intersection Observer
+    function initLazyLoading() {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    showExoAd(entry.target.id);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: `${EXO_CONFIG.lazyOffset}px 0px`
+        });
+
+        document.querySelectorAll('.exoclick-container').forEach(container => {
+            if (container.id && container.dataset.zoneid) {
+                observer.observe(container);
+            }
+        });
+    }
+
+    // Refresh visible ads safely
+    function refreshVisibleExoAds() {
+        document.querySelectorAll('.exoclick-container').forEach(container => {
+            const rect = container.getBoundingClientRect();
+            const isVisible = (
+                rect.top < window.innerHeight &&
+                rect.bottom > 0
+            );
+
+            if (isVisible && container.dataset.zoneid) {
+                // Re-serve (careful with frequency)
+                try {
+                    (AdProvider = window.AdProvider || []).push({"serve": {}});
+                } catch (e) {}
+            }
+        });
+    }
+
+    // ==================== INITIALIZE ====================
+    function initExoClick() {
+        loadExoProvider();
+
+        setTimeout(() => {
+            initLazyLoading();
+        }, 600);
+
+        // Periodic refresh for better revenue (only visible)
+        setInterval(refreshVisibleExoAds, EXO_CONFIG.refreshInterval);
+    }
+
+    window.addEventListener('load', initExoClick);
+
+    console.log('%c ✅ ExoClick optimization loaded', 'color: #FF6600; font-weight: bold');
+</script>
+
+</body>
+</html>
+
+
+
+</section><!-- /.https://grok.com/share/c2hhcmQtMg_a409df1d-d7ac-468e-8d77-d45146236b06 -->										
 
 
 								
