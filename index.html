@@ -1982,6 +1982,94 @@ async function fetchWithProxy(url, proxy) {
 
 
 
+								
+<!-- Praxiom Section -->
+
+								
+// 1. LAZY LOAD ADS - Only load when visible
+// This improves viewability scores, which ad networks reward
+
+const lazyLoadAds = () => {
+  const adContainers = document.querySelectorAll('.ad-container');
+  
+  const adObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const container = entry.target;
+        const adId = container.dataset.adId;
+        
+        // Load ad only when in viewport
+        loadAdUnit(adId, container);
+        adObserver.unobserve(container);
+      }
+    });
+  }, { threshold: 0.1 }); // Trigger when 10% visible
+
+  adContainers.forEach(container => adObserver.observe(container));
+};
+
+// 2. VIEWABILITY OPTIMIZATION
+// Track actual ad visibility and adjust placements
+
+const trackAdViewability = (adId) => {
+  const adElement = document.getElementById(adId);
+  
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const visibilityRatio = entry.intersectionRatio;
+      const isVisible = visibilityRatio > 0.5; // 50% threshold
+      
+      // Send viewability data to analytics
+      if (isVisible) {
+        sendAnalytics('ad_viewable', { adId, visibilityRatio });
+      }
+    });
+  }, { threshold: [0.5, 0.75, 1.0] });
+  
+  visibilityObserver.observe(adElement);
+};
+
+// 3. RESPONSIVE AD SIZING
+// Serve optimal ad sizes per device (higher CPM on proper sizing)
+
+const getOptimalAdSize = () => {
+  const width = window.innerWidth;
+  
+  if (width >= 1200) return { w: 970, h: 250 }; // Leaderboard
+  if (width >= 768) return { w: 728, h: 90 };   // Medium rectangle
+  return { w: 320, h: 100 };                     // Mobile
+};
+
+// 4. AVOID AD FATIGUE - Rotate ad slots
+// Fresh inventory often commands better rates
+
+const adRotation = {
+  slots: ['slot-a', 'slot-b', 'slot-c'],
+  currentIndex: 0,
+  
+  getNextSlot() {
+    const slot = this.slots[this.currentIndex];
+    this.currentIndex = (this.currentIndex + 1) % this.slots.length;
+    return slot;
+  }
+};
+
+// 5. BLOCK LOW-QUALITY ADS (Optional)
+// Some networks allow category filtering
+
+const adConfig = {
+  disablePersonalizedAds: false, // Keep personalization for higher CPM
+  tagForChildDirected: false,
+  adCategories: ['finance', 'technology', 'business'] // Higher-paying niches
+};
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  lazyLoadAds();
+});
+
+</section><!-- /.Praxiom -->										
+								
 
 </body>
 
