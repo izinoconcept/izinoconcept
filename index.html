@@ -55,6 +55,1272 @@
 
 
 
+
+<!-- SETTING icon - DATA SAVER - TRACKER BLOCKER -  AD BLOCKER Section -->
+
+<!-- ================================
+     PRIVACY / SETTINGS CONTROL
+     ================================ -->
+
+
+<style>
+  #privacySettings {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 2147483647;
+    font-family: Arial, sans-serif;
+  }
+
+  #settingsButton {
+    width: 54px;
+    height: 54px;
+    border: 0;
+    border-radius: 50%;
+    background: #111827;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0,0,0,.30);
+    transition: .2s;
+  }
+
+  #settingsButton:hover {
+    transform: scale(1.08);
+  }
+
+  #settingsPanel {
+    display: none;
+    width: 330px;
+    max-width: calc(100vw - 30px);
+    margin-bottom: 12px;
+    background: white;
+    color: #111827;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.30);
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+  }
+
+  #settingsPanel.open {
+    display: block;
+  }
+
+  .settingsHeader {
+    background: #111827;
+    color: white;
+    padding: 17px;
+  }
+
+  .settingsHeader strong {
+    display: block;
+    font-size: 18px;
+  }
+
+  .settingsHeader small {
+    opacity: .75;
+  }
+
+  .settingRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .settingInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .settingIcon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .settingText strong {
+    display: block;
+    font-size: 14px;
+  }
+
+  .settingText span {
+    display: block;
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 3px;
+  }
+
+  /* Toggle */
+
+  .switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+
+  .switch input {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    inset: 0;
+    background: #9ca3af;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .25s;
+  }
+
+  .slider:before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .25s;
+    box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  }
+
+  .switch input:checked + .slider {
+    background: #16a34a;
+  }
+
+  .switch input:checked + .slider:before {
+    transform: translateX(22px);
+  }
+
+  .countryBox {
+    display: none;
+    padding: 12px 15px 15px;
+    background: #f9fafb;
+    border-bottom: 1px solid #eee;
+  }
+
+  .countryBox.show {
+    display: block;
+  }
+
+  #vpnCountry {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+  }
+
+  .vpnNotice {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+
+  #privacyStatus {
+    padding: 12px 15px;
+    font-size: 12px;
+    background: #f9fafb;
+    color: #374151;
+  }
+
+  #resetPrivacySettings {
+    margin: 10px 15px 15px;
+    width: calc(100% - 30px);
+    padding: 9px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+  }
+
+  /* Elements hidden by the ad blocker */
+
+  html.privacy-adblocked [class*="advert"],
+  html.privacy-adblocked [class*="adsby"],
+  html.privacy-adblocked [id*="advert"],
+  html.privacy-adblocked [id*="adsby"],
+  html.privacy-adblocked [class*="banner-ad"],
+  html.privacy-adblocked [class*="google-ad"] {
+    display: none !important;
+  }
+
+  /* Data saver */
+
+  html.data-saver img[data-src] {
+    opacity: .65;
+  }
+</style>
+
+
+
+
+
+<div id="privacySettings">
+
+  <div id="settingsPanel">
+
+    <div class="settingsHeader">
+      <strong>⚙️ Privacy & Performance</strong>
+      <small>Control your browsing preferences</small>
+    </div>
+
+    <!-- VPN -->
+
+    <div class="settingRow">
+
+      <div class="settingInfo">
+        <div class="settingIcon">🌐</div>
+
+        <div class="settingText">
+          <strong>VPN</strong>
+          <span id="vpnLabel">Disabled</span>
+        </div>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" id="vpnToggle">
+        <span class="slider"></span>
+      </label>
+
+    </div>
+
+    <div class="countryBox" id="countryBox">
+
+      <select id="vpnCountry">
+        <option value="Nigeria">🇳🇬 Nigeria</option>
+        <option value="United States">🇺🇸 United States</option>
+        <option value="United Kingdom">🇬🇧 United Kingdom</option>
+        <option value="Canada">🇨🇦 Canada</option>
+        <option value="Australia">🇦🇺 Australia</option>
+        <option value="Germany">🇩🇪 Germany</option>
+        <option value="France">🇫🇷 France</option>
+        <option value="Netherlands">🇳🇱 Netherlands</option>
+        <option value="Switzerland">🇨🇭 Switzerland</option>
+        <option value="Sweden">🇸🇪 Sweden</option>
+        <option value="Norway">🇳🇴 Norway</option>
+        <option value="Denmark">🇩🇰 Denmark</option>
+        <option value="Finland">🇫🇮 Finland</option>
+        <option value="Ireland">🇮🇪 Ireland</option>
+        <option value="Spain">🇪🇸 Spain</option>
+        <option value="Italy">🇮🇹 Italy</option>
+        <option value="Portugal">🇵🇹 Portugal</option>
+        <option value="Belgium">🇧🇪 Belgium</option>
+        <option value="Austria">🇦🇹 Austria</option>
+        <option value="Poland">🇵🇱 Poland</option>
+        <option value="Czech Republic">🇨🇿 Czech Republic</option>
+        <option value="Romania">🇷🇴 Romania</option>
+        <option value="Greece">🇬🇷 Greece</option>
+        <option value="Turkey">🇹🇷 Turkey</option>
+        <option value="Russia">🇷🇺 Russia</option>
+        <option value="Ukraine">🇺🇦 Ukraine</option>
+        <option value="India">🇮🇳 India</option>
+        <option value="Pakistan">🇵🇰 Pakistan</option>
+        <option value="Bangladesh">🇧🇩 Bangladesh</option>
+        <option value="China">🇨🇳 China</option>
+        <option value="Japan">🇯🇵 Japan</option>
+        <option value="South Korea">🇰🇷 South Korea</option>
+        <option value="Singapore">🇸🇬 Singapore</option>
+        <option value="Malaysia">🇲🇾 Malaysia</option>
+        <option value="Indonesia">🇮🇩 Indonesia</option>
+        <option value="Thailand">🇹🇭 Thailand</option>
+        <option value="Vietnam">🇻🇳 Vietnam</option>
+        <option value="Philippines">🇵🇭 Philippines</option>
+        <option value="Brazil">🇧🇷 Brazil</option>
+        <option value="Argentina">🇦🇷 Argentina</option>
+        <option value="Mexico">🇲🇽 Mexico</option>
+        <option value="South Africa">🇿🇦 South Africa</option>
+        <option value="Egypt">🇪🇬 Egypt</option>
+        <option value="Kenya">🇰🇪 Kenya</option>
+        <option value="Ghana">🇬🇭 Ghana</option>
+        <option value="Morocco">🇲🇦 Morocco</option>
+        <option value="United Arab Emirates">🇦🇪 UAE</option>
+        <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+        <option value="Israel">🇮🇱 Israel</option>
+        <option value="New Zealand">🇳🇿 New Zealand</option>
+      </select>
+
+      <div class="vpnNotice">
+        VPN mode here controls the website's VPN preference/status.
+        A real IP-changing VPN requires an external VPN service,
+        proxy, VPN server, browser extension, or native application.
+      </div>
+
+    </div>
+
+
+    <!-- DATA SAVER -->
+
+    <div class="settingRow">
+
+      <div class="settingInfo">
+        <div class="settingIcon">📶</div>
+
+        <div class="settingText">
+          <strong>Data Saver</strong>
+          <span id="dataLabel">Disabled</span>
+        </div>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" id="dataToggle">
+        <span class="slider"></span>
+      </label>
+
+    </div>
+
+
+    <!-- TRACKER BLOCKER -->
+
+    <div class="settingRow">
+
+      <div class="settingInfo">
+        <div class="settingIcon">🛡️</div>
+
+        <div class="settingText">
+          <strong>Tracker Blocker</strong>
+          <span id="trackerLabel">Disabled</span>
+        </div>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" id="trackerToggle">
+        <span class="slider"></span>
+      </label>
+
+    </div>
+
+
+    <!-- AD BLOCKER -->
+
+    <div class="settingRow">
+
+      <div class="settingInfo">
+        <div class="settingIcon">🚫</div>
+
+        <div class="settingText">
+          <strong>Ad Blocker</strong>
+          <span id="adLabel">Disabled</span>
+        </div>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" id="adToggle">
+        <span class="slider"></span>
+      </label>
+
+    </div>
+
+
+    <div id="privacyStatus">
+      Privacy controls are currently disabled.
+    </div>
+
+    <button id="resetPrivacySettings">
+      Reset Settings
+    </button>
+
+  </div>
+
+
+  <!-- SETTINGS BUTTON -->
+
+  <button id="settingsButton"
+          aria-label="Open privacy settings"
+          title="Privacy Settings">
+    ⚙️
+  </button>
+
+</div>
+
+
+<script>
+(function () {
+
+  "use strict";
+
+  const settingsButton =
+    document.getElementById("settingsButton");
+
+  const settingsPanel =
+    document.getElementById("settingsPanel");
+
+  const vpnToggle =
+    document.getElementById("vpnToggle");
+
+  const dataToggle =
+    document.getElementById("dataToggle");
+
+  const trackerToggle =
+    document.getElementById("trackerToggle");
+
+  const adToggle =
+    document.getElementById("adToggle");
+
+  const countryBox =
+    document.getElementById("countryBox");
+
+  const vpnCountry =
+    document.getElementById("vpnCountry");
+
+  const vpnLabel =
+    document.getElementById("vpnLabel");
+
+  const dataLabel =
+    document.getElementById("dataLabel");
+
+  const trackerLabel =
+    document.getElementById("trackerLabel");
+
+  const adLabel =
+    document.getElementById("adLabel");
+
+  const privacyStatus =
+    document.getElementById("privacyStatus");
+
+  const STORAGE_KEY =
+    "izinoconcept_privacy_settings";
+
+
+  /* --------------------------------
+     OPEN / CLOSE SETTINGS
+     -------------------------------- */
+
+  settingsButton.addEventListener("click", function () {
+
+    settingsPanel.classList.toggle("open");
+
+  });
+
+
+  /* --------------------------------
+     STORAGE
+     -------------------------------- */
+
+  function saveSettings() {
+
+    const settings = {
+
+      vpn:
+        vpnToggle.checked,
+
+      country:
+        vpnCountry.value,
+
+      dataSaver:
+        dataToggle.checked,
+
+      trackerBlocker:
+        trackerToggle.checked,
+
+      adBlocker:
+        adToggle.checked
+
+    };
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(settings)
+    );
+
+  }
+
+
+  function loadSettings() {
+
+    try {
+
+      const saved =
+        JSON.parse(
+          localStorage.getItem(STORAGE_KEY)
+        );
+
+      if (!saved) return;
+
+      vpnToggle.checked =
+        !!saved.vpn;
+
+      dataToggle.checked =
+        !!saved.dataSaver;
+
+      trackerToggle.checked =
+        !!saved.trackerBlocker;
+
+      adToggle.checked =
+        !!saved.adBlocker;
+
+      if (saved.country) {
+
+        vpnCountry.value =
+          saved.country;
+
+      }
+
+    } catch (error) {
+
+      console.warn(
+        "Privacy settings could not be loaded."
+      );
+
+    }
+
+  }
+
+
+  /* --------------------------------
+     VPN UI
+     -------------------------------- */
+
+  function updateVPN() {
+
+    countryBox.classList.toggle(
+      "show",
+      vpnToggle.checked
+    );
+
+    vpnLabel.textContent =
+      vpnToggle.checked
+        ? "Enabled • " + vpnCountry.value
+        : "Disabled";
+
+    updateStatus();
+
+  }
+
+
+  vpnToggle.addEventListener(
+    "change",
+    function () {
+
+      updateVPN();
+      saveSettings();
+
+    }
+  );
+
+
+  vpnCountry.addEventListener(
+    "change",
+    function () {
+
+      updateVPN();
+      saveSettings();
+
+    }
+  );
+
+
+  /* --------------------------------
+     DATA SAVER
+     -------------------------------- */
+
+  function enableDataSaver() {
+
+    document.documentElement
+      .classList.add("data-saver");
+
+    dataLabel.textContent =
+      "Enabled";
+
+    /*
+      Lazy-load images that use:
+
+      <img data-src="image.jpg">
+
+      instead of:
+
+      <img src="image.jpg">
+    */
+
+    const images =
+      document.querySelectorAll(
+        "img[data-src]"
+      );
+
+    images.forEach(function (img) {
+
+      img.loading = "lazy";
+
+      if (!img.src) {
+
+        img.src =
+          img.dataset.src;
+
+      }
+
+    });
+
+  }
+
+
+  function disableDataSaver() {
+
+    document.documentElement
+      .classList.remove("data-saver");
+
+    dataLabel.textContent =
+      "Disabled";
+
+  }
+
+
+  dataToggle.addEventListener(
+    "change",
+    function () {
+
+      if (dataToggle.checked) {
+
+        enableDataSaver();
+
+      } else {
+
+        disableDataSaver();
+
+      }
+
+      saveSettings();
+      updateStatus();
+
+    }
+  );
+
+
+  /* --------------------------------
+     TRACKER BLOCKER
+     -------------------------------- */
+
+  const trackerPatterns = [
+
+    "google-analytics.com",
+    "googletagmanager.com",
+    "doubleclick.net",
+    "googleadservices.com",
+    "facebook.net",
+    "connect.facebook.net",
+    "analytics.",
+    "tracking.",
+    "tracker.",
+    "pixel.",
+    "hotjar.com",
+    "clarity.ms",
+    "mixpanel.com",
+    "segment.io",
+    "amplitude.com"
+
+  ];
+
+
+  function isTrackerURL(url) {
+
+    if (!url) return false;
+
+    const value =
+      String(url).toLowerCase();
+
+    return trackerPatterns.some(
+      function (pattern) {
+
+        return value.includes(pattern);
+
+      }
+    );
+
+  }
+
+
+  function enableTrackerBlocker() {
+
+    trackerLabel.textContent =
+      "Enabled";
+
+    /*
+      Block dynamically created
+      script / iframe / image tracker
+      elements where possible.
+    */
+
+    document.addEventListener(
+      "beforescriptexecute",
+      trackerScriptHandler,
+      true
+    );
+
+    scanForTrackers();
+
+  }
+
+
+  function trackerScriptHandler(event) {
+
+    const script =
+      event.target;
+
+    if (
+      script &&
+      isTrackerURL(script.src)
+    ) {
+
+      event.preventDefault();
+
+    }
+
+  }
+
+
+  function scanForTrackers() {
+
+    document
+      .querySelectorAll(
+        "script[src], iframe[src], img[src]"
+      )
+      .forEach(function (element) {
+
+        if (
+          isTrackerURL(
+            element.src
+          )
+        ) {
+
+          element.remove();
+
+        }
+
+      });
+
+  }
+
+
+  function disableTrackerBlocker() {
+
+    trackerLabel.textContent =
+      "Disabled";
+
+  }
+
+
+  trackerToggle.addEventListener(
+    "change",
+    function () {
+
+      if (trackerToggle.checked) {
+
+        enableTrackerBlocker();
+
+      } else {
+
+        disableTrackerBlocker();
+
+      }
+
+      saveSettings();
+      updateStatus();
+
+    }
+  );
+
+
+  /* --------------------------------
+     AD BLOCKER
+     -------------------------------- */
+
+  function enableAdBlocker() {
+
+    document.documentElement
+      .classList.add("privacy-adblocked");
+
+    adLabel.textContent =
+      "Enabled";
+
+    removeCommonAds();
+
+  }
+
+
+  function removeCommonAds() {
+
+    const selectors = [
+
+      "[id*='advert']",
+      "[id*='adsby']",
+      "[class*='advert']",
+      "[class*='adsby']",
+      "[class*='banner-ad']",
+      "[class*='google-ad']",
+      "[data-ad]",
+      "[data-advertisement]"
+
+    ];
+
+    document
+      .querySelectorAll(
+        selectors.join(",")
+      )
+      .forEach(function (element) {
+
+        element.style.setProperty(
+          "display",
+          "none",
+          "important"
+        );
+
+      });
+
+  }
+
+
+  function disableAdBlocker() {
+
+    document.documentElement
+      .classList.remove(
+        "privacy-adblocked"
+      );
+
+    adLabel.textContent =
+      "Disabled";
+
+  }
+
+
+  adToggle.addEventListener(
+    "change",
+    function () {
+
+      if (adToggle.checked) {
+
+        enableAdBlocker();
+
+      } else {
+
+        disableAdBlocker();
+
+      }
+
+      saveSettings();
+      updateStatus();
+
+    }
+  );
+
+
+  /* --------------------------------
+     STATUS
+     -------------------------------- */
+
+  function updateStatus() {
+
+    const active = [];
+
+    if (vpnToggle.checked)
+      active.push("VPN");
+
+    if (dataToggle.checked)
+      active.push("Data Saver");
+
+    if (trackerToggle.checked)
+      active.push("Tracker Blocker");
+
+    if (adToggle.checked)
+      active.push("Ad Blocker");
+
+    if (active.length === 0) {
+
+      privacyStatus.textContent =
+        "Privacy controls are currently disabled.";
+
+    } else {
+
+      privacyStatus.textContent =
+        "Active: " + active.join(" • ");
+
+    }
+
+  }
+
+
+  /* --------------------------------
+     RESET
+     -------------------------------- */
+
+  document
+    .getElementById(
+      "resetPrivacySettings"
+    )
+    .addEventListener(
+      "click",
+      function () {
+
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+
+        vpnToggle.checked = false;
+        dataToggle.checked = false;
+        trackerToggle.checked = false;
+        adToggle.checked = false;
+
+        vpnCountry.value =
+          "Nigeria";
+
+        disableDataSaver();
+        disableTrackerBlocker();
+        disableAdBlocker();
+        updateVPN();
+        updateStatus();
+
+      }
+    );
+
+
+  /* --------------------------------
+     INITIALIZE
+     -------------------------------- */
+
+  loadSettings();
+
+  if (dataToggle.checked)
+    enableDataSaver();
+  else
+    disableDataSaver();
+
+  if (trackerToggle.checked)
+    enableTrackerBlocker();
+  else
+    disableTrackerBlocker();
+
+  if (adToggle.checked)
+    enableAdBlocker();
+  else
+    disableAdBlocker();
+
+  updateVPN();
+  updateStatus();
+
+})();
+</script>
+
+</section><!-- /.SETTING icon - DATA SAVER - TRACKER BLOCKER -  AD BLOCKER -->
+
+
+
+
+
+
+
+
+
+<!-- TRACKER BLOCKER Section -->
+
+<!-- =========================================================
+     TRACKER BLOCKER
+     Allows Google AdSense, AdSecure and legitimate advertising
+     ========================================================= -->
+<script>
+(function () {
+    'use strict';
+
+    /*
+     * IMPORTANT:
+     * This is a privacy-oriented tracker filter.
+     *
+     * It intentionally DOES NOT block:
+     * - Google AdSense
+     * - Google Publisher Tag
+     * - AdSecure
+     * - DoubleClick ad serving
+     * - Your own website scripts
+     */
+
+    const BLOCKED_TRACKERS = [
+        'google-analytics.com',
+        'googletagmanager.com',
+        'analytics.google.com',
+        'connect.facebook.net',
+        'facebook.net',
+        'pixel.facebook.com',
+        'bat.bing.com',
+        'clarity.ms',
+        'hotjar.com',
+        'mixpanel.com',
+        'segment.io',
+        'segment.com',
+        'amplitude.com',
+        'fullstory.com',
+        'mouseflow.com',
+        'luckyorange.com',
+        'smartlook.com',
+        'crazyegg.com',
+        'quantserve.com',
+        'scorecardresearch.com',
+        'chartbeat.com',
+        'newrelic.com',
+        'nr-data.net'
+    ];
+
+    /*
+     * Domains that must ALWAYS be allowed.
+     */
+    const ALLOWED_AD_SERVICES = [
+        'adsense.google.com',
+        'pagead2.googlesyndication.com',
+        'googleads.g.doubleclick.net',
+        'securepubads.g.doubleclick.net',
+        'tpc.googlesyndication.com',
+        'googlesyndication.com',
+        'doubleclick.net',
+
+        /*
+         * AdSecure
+         */
+        'adsecure.com',
+        'docs.adsecure.com',
+        'd20e1fwvqbtl7v.cloudfront.net'
+    ];
+
+    function getHostname(url) {
+        try {
+            return new URL(url, window.location.href).hostname
+                .toLowerCase();
+        } catch (e) {
+            return '';
+        }
+    }
+
+    function matchesDomain(hostname, domain) {
+        return hostname === domain ||
+               hostname.endsWith('.' + domain);
+    }
+
+    function isAllowedAdService(hostname) {
+        return ALLOWED_AD_SERVICES.some(function (domain) {
+            return matchesDomain(hostname, domain);
+        });
+    }
+
+    function isBlockedTracker(hostname) {
+        if (!hostname) return false;
+
+        /* Never block legitimate advertising services */
+        if (isAllowedAdService(hostname)) {
+            return false;
+        }
+
+        return BLOCKED_TRACKERS.some(function (domain) {
+            return matchesDomain(hostname, domain);
+        });
+    }
+
+    /*
+     * Protect dynamically-created scripts, images, iframes,
+     * pixels and other network resources.
+     */
+    const originalAppendChild = Node.prototype.appendChild;
+    const originalInsertBefore = Node.prototype.insertBefore;
+
+    function shouldBlockNode(node) {
+        if (!node || !node.tagName) return false;
+
+        const tag = node.tagName.toLowerCase();
+
+        let url = '';
+
+        if (tag === 'script') {
+            url = node.src || '';
+        } else if (tag === 'iframe') {
+            url = node.src || '';
+        } else if (tag === 'img') {
+            url = node.src || '';
+        } else if (tag === 'link') {
+            url = node.href || '';
+        }
+
+        if (!url) return false;
+
+        const hostname = getHostname(url);
+
+        return isBlockedTracker(hostname);
+    }
+
+    Node.prototype.appendChild = function (node) {
+        if (shouldBlockNode(node)) {
+            console.info(
+                '[Tracker Blocker] Blocked:',
+                node.src || node.href || ''
+            );
+
+            return node;
+        }
+
+        return originalAppendChild.call(this, node);
+    };
+
+    Node.prototype.insertBefore = function (node, referenceNode) {
+        if (shouldBlockNode(node)) {
+            console.info(
+                '[Tracker Blocker] Blocked:',
+                node.src || node.href || ''
+            );
+
+            return node;
+        }
+
+        return originalInsertBefore.call(
+            this,
+            node,
+            referenceNode
+        );
+    };
+
+    /*
+     * Protect dynamically-created iframes/images/scripts.
+     */
+    const originalSetAttribute =
+        Element.prototype.setAttribute;
+
+    Element.prototype.setAttribute = function (name, value) {
+
+        if (
+            typeof value === 'string' &&
+            (
+                name === 'src' ||
+                name === 'href'
+            )
+        ) {
+            const hostname = getHostname(value);
+
+            if (isBlockedTracker(hostname)) {
+                console.info(
+                    '[Tracker Blocker] Blocked:',
+                    value
+                );
+
+                return;
+            }
+        }
+
+        return originalSetAttribute.call(
+            this,
+            name,
+            value
+        );
+    };
+
+    /*
+     * MutationObserver catches trackers added after page load.
+     */
+    const observer = new MutationObserver(function (mutations) {
+
+        mutations.forEach(function (mutation) {
+
+            mutation.addedNodes.forEach(function (node) {
+
+                if (!node || node.nodeType !== 1) {
+                    return;
+                }
+
+                if (shouldBlockNode(node)) {
+
+                    console.info(
+                        '[Tracker Blocker] Removed:',
+                        node.src || node.href || ''
+                    );
+
+                    if (node.parentNode) {
+                        node.parentNode.removeChild(node);
+                    }
+
+                    return;
+                }
+
+                /*
+                 * Also inspect descendants.
+                 */
+                if (node.querySelectorAll) {
+
+                    node.querySelectorAll(
+                        'script[src], iframe[src], img[src], link[href]'
+                    ).forEach(function (child) {
+
+                        if (shouldBlockNode(child)) {
+
+                            console.info(
+                                '[Tracker Blocker] Removed:',
+                                child.src || child.href || ''
+                            );
+
+                            if (child.parentNode) {
+                                child.parentNode.removeChild(child);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    /*
+     * Start observing after the DOM becomes available.
+     */
+    function startTrackerProtection() {
+
+        if (!document.documentElement) {
+            return;
+        }
+
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener(
+            'DOMContentLoaded',
+            startTrackerProtection
+        );
+    } else {
+        startTrackerProtection();
+    }
+
+    /*
+     * Expose a small status API for debugging.
+     */
+    window.IzinoTrackerBlocker = {
+        enabled: true,
+
+        isBlocked: function (url) {
+            return isBlockedTracker(getHostname(url));
+        },
+
+        isAdvertisingAllowed: function (url) {
+            return isAllowedAdService(getHostname(url));
+        }
+    };
+
+})();
+</script>
+
+</section><!-- /.TRACKER BLOCKER -->
+
+
+
+
+
+
+
+
 <!-- Google Search Console Section -->
 
 <meta name="google-site-verification" content="google075a8d0abd9189b0" />
