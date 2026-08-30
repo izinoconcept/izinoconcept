@@ -53,6 +53,95 @@
 
 
 
+
+	
+<!-- Privacy / Tracker Blocker -->
+<script>
+(function () {
+  "use strict";
+
+  /* Domains commonly used for analytics/tracking.
+     Add/remove domains according to the services your site actually uses. */
+  const blockedHosts = [
+    "google-analytics.com",
+    "googletagmanager.com",
+    "analytics.google.com",
+    "doubleclick.net",
+    "facebook.net",
+    "connect.facebook.net",
+    "hotjar.com",
+    "clarity.ms",
+    "segment.io",
+    "mixpanel.com",
+    "amplitude.com"
+  ];
+
+  const isBlocked = function (url) {
+    try {
+      const host = new URL(url, location.href).hostname.toLowerCase();
+
+      return blockedHosts.some(function (domain) {
+        return host === domain || host.endsWith("." + domain);
+      });
+    } catch (e) {
+      return false;
+    }
+  };
+
+  /* Block fetch() requests to known tracking domains */
+  const originalFetch = window.fetch;
+
+  window.fetch = function () {
+    const url = arguments[0] && arguments[0].url
+      ? arguments[0].url
+      : arguments[0];
+
+    if (typeof url === "string" && isBlocked(url)) {
+      return Promise.reject(new Error("Tracker blocked"));
+    }
+
+    return originalFetch.apply(this, arguments);
+  };
+
+  /* Block XMLHttpRequest connections */
+  const originalOpen = XMLHttpRequest.prototype.open;
+
+  XMLHttpRequest.prototype.open = function (method, url) {
+    if (typeof url === "string" && isBlocked(url)) {
+      throw new Error("Tracker blocked");
+    }
+
+    return originalOpen.apply(this, arguments);
+  };
+
+  /* Block dynamically created tracking images */
+  const originalSetAttribute = Element.prototype.setAttribute;
+
+  Element.prototype.setAttribute = function (name, value) {
+    if (
+      this.tagName === "IMG" &&
+      name.toLowerCase() === "src" &&
+      typeof value === "string" &&
+      isBlocked(value)
+    ) {
+      return;
+    }
+
+    return originalSetAttribute.apply(this, arguments);
+  };
+
+})();
+</script>
+
+<!-- Your advertisement -->
+<script
+  type="text/javascript"
+  src="https://data527.click/2556c891524f76bfe89c/2dab0522c9/?placementName=default"
+  async>
+</script>
+
+
+
 <!-- Ad container -->
 <div id="ad-container" style="text-align:center; margin:15px auto; min-height:90px;"></div>
 
