@@ -50,50 +50,54 @@
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
 
+
+
+
+
+
+<!-- Advertica Section -->
+
+
+
+<!-- Direct Smartlink Section -->
+
+<script type="text/javascript" src="https://data527.click/c1ff860139d4e102c874/91bdaa654e/?placementName=default"></script>
+
+</section><!-- /.Direct Smartlink -->
+
+
+
+
 <!-- Banner Ad Tag Section -->
 
-<!-- Responsive 300x250 Advertisement -->
-<div class="ad-container" aria-label="Advertisement">
-  <ins
-    style="display:block;width:300px;height:250px;margin:0 auto;"
-    data-width="300"
-    data-height="250"
-    class="ve2e51b4f1a"
-    data-domain="https://data527.click"
-    data-affquery="/bccd080ceebaa818f5f5/e2e51b4f1a/?placementName=default">
-  </ins>
-</div>
-
-<script
-  src="https://data527.click/js/responsive.js"
-  async>
-</script>
-
-<style>
-  .ad-container {
-    width: 100%;
-    min-height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    margin: 20px auto;
-  }
-
-  @media (max-width: 340px) {
-    .ad-container {
-      transform: scale(0.9);
-      transform-origin: center;
-    }
-  }
-</style>
-```
-
+<ins style="width: 300px;height:250px" data-width="300" data-height="250" class="ve2e51b4f1a" data-domain="https://data527.click" data-affquery="/bccd080ceebaa818f5f5/e2e51b4f1a/?placementName=default"><script src="https://data527.click/js/responsive.js" async></script></ins>
 
 </section><!-- /.Banner Ad Tag -->
 
 
-	
+
+
+<!-- PopUp/Under Ad Tag Section -->
+
+<script type="text/javascript" src="https://data527.click/2556c891524f76bfe89c/2dab0522c9/?placementName=default"></script>
+
+</section><!-- /.PopUp/Under Ad Tag -->
+
+
+
+
+
+
+</section><!-- /.Advertica -->
+
+
+
+
+
+
+
+
+
 <!-- SETTING icon - DATA SAVER - TRACKER BLOCKER -  AD BLOCKER Section -->
 
 <!-- ================================
@@ -1059,6 +1063,306 @@
 
 
 
+<!-- TRACKER BLOCKER Section -->
+
+<!-- =========================================================
+     TRACKER BLOCKER
+     Allows Google AdSense, AdSecure and legitimate advertising
+     ========================================================= -->
+<script>
+(function () {
+    'use strict';
+
+    /*
+     * IMPORTANT:
+     * This is a privacy-oriented tracker filter.
+     *
+     * It intentionally DOES NOT block:
+     * - Google AdSense
+     * - Google Publisher Tag
+     * - AdSecure
+     * - DoubleClick ad serving
+     * - Your own website scripts
+     */
+
+    const BLOCKED_TRACKERS = [
+        'google-analytics.com',
+        'googletagmanager.com',
+        'analytics.google.com',
+        'connect.facebook.net',
+        'facebook.net',
+        'pixel.facebook.com',
+        'bat.bing.com',
+        'clarity.ms',
+        'hotjar.com',
+        'mixpanel.com',
+        'segment.io',
+        'segment.com',
+        'amplitude.com',
+        'fullstory.com',
+        'mouseflow.com',
+        'luckyorange.com',
+        'smartlook.com',
+        'crazyegg.com',
+        'quantserve.com',
+        'scorecardresearch.com',
+        'chartbeat.com',
+        'newrelic.com',
+        'nr-data.net'
+    ];
+
+    /*
+     * Domains that must ALWAYS be allowed.
+     */
+    const ALLOWED_AD_SERVICES = [
+        'adsense.google.com',
+        'pagead2.googlesyndication.com',
+        'googleads.g.doubleclick.net',
+        'securepubads.g.doubleclick.net',
+        'tpc.googlesyndication.com',
+        'googlesyndication.com',
+        'doubleclick.net',
+
+        /*
+         * AdSecure
+         */
+        'adsecure.com',
+        'docs.adsecure.com',
+        'd20e1fwvqbtl7v.cloudfront.net'
+    ];
+
+    function getHostname(url) {
+        try {
+            return new URL(url, window.location.href).hostname
+                .toLowerCase();
+        } catch (e) {
+            return '';
+        }
+    }
+
+    function matchesDomain(hostname, domain) {
+        return hostname === domain ||
+               hostname.endsWith('.' + domain);
+    }
+
+    function isAllowedAdService(hostname) {
+        return ALLOWED_AD_SERVICES.some(function (domain) {
+            return matchesDomain(hostname, domain);
+        });
+    }
+
+    function isBlockedTracker(hostname) {
+        if (!hostname) return false;
+
+        /* Never block legitimate advertising services */
+        if (isAllowedAdService(hostname)) {
+            return false;
+        }
+
+        return BLOCKED_TRACKERS.some(function (domain) {
+            return matchesDomain(hostname, domain);
+        });
+    }
+
+    /*
+     * Protect dynamically-created scripts, images, iframes,
+     * pixels and other network resources.
+     */
+    const originalAppendChild = Node.prototype.appendChild;
+    const originalInsertBefore = Node.prototype.insertBefore;
+
+    function shouldBlockNode(node) {
+        if (!node || !node.tagName) return false;
+
+        const tag = node.tagName.toLowerCase();
+
+        let url = '';
+
+        if (tag === 'script') {
+            url = node.src || '';
+        } else if (tag === 'iframe') {
+            url = node.src || '';
+        } else if (tag === 'img') {
+            url = node.src || '';
+        } else if (tag === 'link') {
+            url = node.href || '';
+        }
+
+        if (!url) return false;
+
+        const hostname = getHostname(url);
+
+        return isBlockedTracker(hostname);
+    }
+
+    Node.prototype.appendChild = function (node) {
+        if (shouldBlockNode(node)) {
+            console.info(
+                '[Tracker Blocker] Blocked:',
+                node.src || node.href || ''
+            );
+
+            return node;
+        }
+
+        return originalAppendChild.call(this, node);
+    };
+
+    Node.prototype.insertBefore = function (node, referenceNode) {
+        if (shouldBlockNode(node)) {
+            console.info(
+                '[Tracker Blocker] Blocked:',
+                node.src || node.href || ''
+            );
+
+            return node;
+        }
+
+        return originalInsertBefore.call(
+            this,
+            node,
+            referenceNode
+        );
+    };
+
+    /*
+     * Protect dynamically-created iframes/images/scripts.
+     */
+    const originalSetAttribute =
+        Element.prototype.setAttribute;
+
+    Element.prototype.setAttribute = function (name, value) {
+
+        if (
+            typeof value === 'string' &&
+            (
+                name === 'src' ||
+                name === 'href'
+            )
+        ) {
+            const hostname = getHostname(value);
+
+            if (isBlockedTracker(hostname)) {
+                console.info(
+                    '[Tracker Blocker] Blocked:',
+                    value
+                );
+
+                return;
+            }
+        }
+
+        return originalSetAttribute.call(
+            this,
+            name,
+            value
+        );
+    };
+
+    /*
+     * MutationObserver catches trackers added after page load.
+     */
+    const observer = new MutationObserver(function (mutations) {
+
+        mutations.forEach(function (mutation) {
+
+            mutation.addedNodes.forEach(function (node) {
+
+                if (!node || node.nodeType !== 1) {
+                    return;
+                }
+
+                if (shouldBlockNode(node)) {
+
+                    console.info(
+                        '[Tracker Blocker] Removed:',
+                        node.src || node.href || ''
+                    );
+
+                    if (node.parentNode) {
+                        node.parentNode.removeChild(node);
+                    }
+
+                    return;
+                }
+
+                /*
+                 * Also inspect descendants.
+                 */
+                if (node.querySelectorAll) {
+
+                    node.querySelectorAll(
+                        'script[src], iframe[src], img[src], link[href]'
+                    ).forEach(function (child) {
+
+                        if (shouldBlockNode(child)) {
+
+                            console.info(
+                                '[Tracker Blocker] Removed:',
+                                child.src || child.href || ''
+                            );
+
+                            if (child.parentNode) {
+                                child.parentNode.removeChild(child);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    /*
+     * Start observing after the DOM becomes available.
+     */
+    function startTrackerProtection() {
+
+        if (!document.documentElement) {
+            return;
+        }
+
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener(
+            'DOMContentLoaded',
+            startTrackerProtection
+        );
+    } else {
+        startTrackerProtection();
+    }
+
+    /*
+     * Expose a small status API for debugging.
+     */
+    window.IzinoTrackerBlocker = {
+        enabled: true,
+
+        isBlocked: function (url) {
+            return isBlockedTracker(getHostname(url));
+        },
+
+        isAdvertisingAllowed: function (url) {
+            return isAllowedAdService(getHostname(url));
+        }
+    };
+
+})();
+</script>
+
+</section><!-- /.TRACKER BLOCKER -->
+
+
+
+
+
+
+
+
 <!-- Google Search Console Section -->
 
 <meta name="google-site-verification" content="google075a8d0abd9189b0" />
@@ -1867,36 +2171,7 @@
 
 
 
-<!-- Advertica Section -->
 
-
-
-<!-- Direct Smartlink Section -->
-
-<script type="text/javascript" src="https://data527.click/c1ff860139d4e102c874/91bdaa654e/?placementName=default"></script>
-
-</section><!-- /.Direct Smartlink -->
-
-
-
-						
-
-<!-- PopUp/Under Ad Tag Section -->
-
-<script type="text/javascript" src="https://data527.click/2556c891524f76bfe89c/2dab0522c9/?placementName=default"></script>
-
-</section><!-- /.PopUp/Under Ad Tag -->
-
-
-
-
-
-</section><!-- /.Advertica -->
-
-
-
-
-								
 
 
 
