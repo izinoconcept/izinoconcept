@@ -281,83 +281,30 @@
 
 <!-- Advertica Section -->
 
-
-
-<!-- I.ZINO CONCEPT AD PERFORMANCE DASHBOARD -->
-
-<div id="ad-dashboard">
-  <h2>Ad Performance</h2>
-
-  <div class="stats">
-    <div class="stat-card">
-      <span>Impressions</span>
-      <strong id="impressions">0</strong>
-    </div>
-
-    <div class="stat-card">
-      <span>Clicks</span>
-      <strong id="clicks">0</strong>
-    </div>
-
-    <div class="stat-card">
-      <span>Conversions</span>
-      <strong id="conversions">0</strong>
-    </div>
-  </div>
+<!-- Unit 1: high-impact, in-content, above the fold -->
+<div class="ad-slot" data-size="728x90" data-ad-id="leaderboard-top" data-aff="/2556c891524f76bfe89c/2dab0522c9/">
+  <script async src="https://data527.click/2556c891524f76bfe89c/2dab0522c9/?placementName=leaderboard-top"></script>
 </div>
 
-<!-- Ad 1 -->
-<script type="text/javascript"
-src="https://data527.click/2556c891524f76bfe89c/2dab0522c9/?placementName=default">
-</script>
+<!-- Unit 2: mid-article, after real content -->
+<div class="ad-slot" data-size="300x250" data-ad-id="incontent-mid" data-aff="/192589d7bb7d77fa3687/e99a08a9df/">
+  <script async src="https://data527.click/192589d7bb7d77fa3687/e99a08a9df/?placementName=incontent-mid"></script>
+</div>
 
-<!-- Ad 2 -->
-<script type="text/javascript"
-src="https://data527.click/192589d7bb7d77fa3687/e99a08a9df/?placementName=default">
-</script>
+<!-- Unit 3: near end of content -->
+<div class="ad-slot" data-size="728x90" data-ad-id="leaderboard-end" data-aff="/c1ff860139d4e102c874/91bdaa654e/">
+  <script async src="https://data527.click/c1ff860139d4e102c874/91bdaa654e/?placementName=leaderboard-end"></script>
+</div>
 
-<!-- Ad 3 -->
-<script type="text/javascript"
-src="https://data527.click/c1ff860139d4e102c874/91bdaa654e/?placementName=default">
-</script>
-
-<!-- 300 × 250 Ad -->
-<ins
-  style="width:300px;height:250px"
-  data-width="300"
-  data-height="250"
-  class="ve2e51b4f1a"
-  data-domain="https://data527.click"
-  data-affquery="/bccd080ceebaa818f5f5/e2e51b4f1a/?placementName=default">
-
-  <script
-    src="https://data527.click/js/responsive.js"
-    async>
-  </script>
-</ins>
-
-<script>
-/*
- * IMPORTANT:
- * These values are placeholders.
- * Replace them with values obtained from the ad network's
- * official reporting/API system.
- */
-
-function updateAdStats(impressions, clicks, conversions) {
-    document.getElementById("impressions").textContent =
-        Number(impressions).toLocaleString();
-
-    document.getElementById("clicks").textContent =
-        Number(clicks).toLocaleString();
-
-    document.getElementById("conversions").textContent =
-        Number(conversions).toLocaleString();
-}
-
-// Example:
-// updateAdStats(1250, 37, 4);
-</script>
+<!-- Unit 4: the <ins> unit, now inside a measured container -->
+<div class="ad-slot" data-size="300x250" data-ad-id="box-footer" data-aff="/bccd080ceebaa818f5f5/e2e51b4f1a/">
+  <ins style="display:block;width:300px;height:250px"
+       data-width="300" data-height="250"
+       class="ve2e51b4f1a"
+       data-domain="https://data527.click"
+       data-affquery="/bccd080ceebaa818f5f5/e2e51b4f1a/?placementName=box-footer"></ins>
+  <script src="https://data527.click/js/responsive.js" async></script>
+</div>
 
 
 
